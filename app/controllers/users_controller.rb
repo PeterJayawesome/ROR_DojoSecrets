@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :require_login, only:[:new,:create,:create_params]
+  before_action :authorization, except:[:new,:create,:create_params]
   def new
 
   end
