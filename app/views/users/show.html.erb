@@ -1,0 +1,20 @@
+<h1>Welcome <%=current_user.name%></h1>
+<p>Find me in app/views/users/show.html.erb</p>
+<a href="/users/<%=current_user.id%>/edit">Edit Profile</a>
+<form action="/secrets/new" method="post">
+	<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+	<p>Secret:</p>
+	<input type="text" name="Content">
+	<input type="submit" value="Create Secret">
+</form>
+
+<% @secrets.each do |secret| %>
+  <p><%=secret.content%></p>
+  <% if current_user == secret.user %>
+    <form action="/secrets/<%=secret.id%>" method="post">
+    	<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+    	<input type="hidden" name="_method" value="delete">
+    	<input type="submit" value="Delete Secret">
+    </form>
+  <% end %>
+<% end %>
