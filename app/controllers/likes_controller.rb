@@ -1,7 +1,10 @@
 class LikesController < ApplicationController
   def create
   	# binding.pry
-  	like = current_user.likes.create(secret_id:params[:secret_id])
+    like = current_user.likes.find_by(secret_id:params[:secret_id])
+    if not like
+    	current_user.likes.create(secret_id:params[:secret_id])
+    end
   	redirect_to "/secrets"
   end
 
